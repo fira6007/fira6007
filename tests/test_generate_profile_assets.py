@@ -176,6 +176,14 @@ class GenerateProfileAssetsTests(unittest.TestCase):
         self.assertEqual(len(requested_urls), EVENT_PAGE_LIMIT)
         self.assertEqual(len(rows), EVENT_PAGE_LIMIT * 100)
 
+    def test_fetch_all_pages_rejects_non_list_payloads(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "Expected a list response"):
+            fetch_all_pages(
+                "https://api.github.com/users/fira6007/repos",
+                fetch_json=lambda *_: {"message": "rate limited"},
+                max_pages=1,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

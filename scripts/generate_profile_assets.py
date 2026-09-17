@@ -56,6 +56,8 @@ def fetch_all_pages(
             return rows
         separator = "&" if "?" in url else "?"
         batch = fetch_json(f"{url}{separator}per_page=100&page={page}", token)
+        if not isinstance(batch, list):
+            raise RuntimeError(f"Expected a list response while fetching {url}")
         if not batch:
             return rows
         rows.extend(batch)
