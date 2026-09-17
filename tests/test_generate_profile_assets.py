@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from scripts.generate_profile_assets import (
+    LANGUAGE_REPO_LIMIT,
     aggregate_languages,
     bucket_public_events,
     render_assets,
@@ -117,6 +118,38 @@ class GenerateProfileAssetsTests(unittest.TestCase):
 
             self.assertIn("github-languages.svg", warnings)
             self.assertEqual(languages_card.read_text(encoding="utf-8"), "keep-languages")
+
+    def test_render_assets_limits_language_fetches(self) -> None:
+        with tempfile.TemporaryDirectory() as tempdir:
+            output_dir = Path(tempdir)
+            language_calls = 0
+
+            def fake_fetch(url: str, _: str | None):
+                nonlocal language_calls
+                if url == "https://api.github.com/users/fira6007":
+                    return {"public_repos": LANGUAGE_REPO_LIMIT + 5, "followers": 1, "following": 2}
+                if "repos?type=owner&sort=updated" in url:
+                    return [
+                        {"name": f"repo-{index}", "stargazers_count": 0, "pushed_at": "2026-09-17T00:00:00Z", "languages_url": f"https://example.test/lang/{index}"}
+                        for index in range(LANGUAGE_REPO_LIMIT + 5)
+                    ]
+                if url.startswith("https://example.test/lang/"):
+                    language_calls += 1
+                    return {"Go": 10}
+                if "events/public" in url:
+                    return []
+                raise AssertionError(f"Unexpected URL: {url}")
+
+            warnings = render_assets(
+                "fira6007",
+                output_dir,
+                token=None,
+                today=dt.date(2026, 9, 17),
+                fetch_json=fake_fetch,
+            )
+
+            self.assertEqual(warnings, {})
+            self.assertEqual(language_calls, LANGUAGE_REPO_LIMIT)
 
 
 if __name__ == "__main__":

@@ -85,7 +85,7 @@ I’m most motivated when software removes friction from real operational bottle
 
 <p align="center">
   <sub>
-    Language data reflects public repository code, not proficiency. Activity is based on GitHub's recent public event feed and is not a complete contribution count.
+    Language data reflects public repository code from recently updated public repositories, not proficiency. Activity is based on GitHub's recent public event feed and is not a complete contribution count.
     If an asset is temporarily unavailable, see my <a href="https://github.com/fira6007?tab=repositories">repositories</a> and
     <a href="https://github.com/fira6007">GitHub profile</a> directly.
   </sub>

@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "17 5 * * *"
 
+concurrency:
+  group: refresh-profile-assets-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   refresh-assets:
     runs-on: ubuntu-latest

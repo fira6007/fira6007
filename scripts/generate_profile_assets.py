@@ -20,6 +20,7 @@ CARD_WIDTH = 900
 CARD_HEIGHT = 420
 ACTIVITY_WIDTH = 1100
 ACTIVITY_HEIGHT = 360
+LANGUAGE_REPO_LIMIT = 20
 
 
 def escape(value: Any) -> str:
@@ -243,7 +244,7 @@ def build_languages_svg(languages: list[tuple[str, int, float]], generated_on: s
   <text class="muted" x="664" y="388">Refreshed {escape(generated_on)}</text>"""
     return card_shell(
         "Repository languages",
-        "Aggregated from public repository language breakdowns",
+        f"Aggregated from up to {LANGUAGE_REPO_LIMIT} recently updated public repositories",
         CARD_WIDTH,
         CARD_HEIGHT,
         body,
@@ -365,7 +366,7 @@ def render_assets(
         language_maps = []
         if repos is None:
             raise RuntimeError("Repository list could not be fetched during this refresh.")
-        for repo in repos:
+        for repo in repos[:LANGUAGE_REPO_LIMIT]:
             languages_url = repo.get("languages_url")
             if not languages_url:
                 continue
@@ -382,7 +383,7 @@ def render_assets(
                 language_path,
                 build_unavailable_svg(
                     "Repository languages",
-                    "Aggregated from public repository language breakdowns",
+                    f"Aggregated from up to {LANGUAGE_REPO_LIMIT} recently updated public repositories",
                     "Repository language data could not be fetched during this refresh.",
                     CARD_WIDTH,
                     CARD_HEIGHT,
