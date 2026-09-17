@@ -54,7 +54,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 output_dir,
                 token=None,
                 today=dt.date(2026, 9, 17),
-                fetch_json=failing_fetch,
+                fetcher=failing_fetch,
             )
 
             self.assertIn("github-overview.svg", warnings)
@@ -80,7 +80,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 output_dir,
                 token=None,
                 today=dt.date(2026, 9, 17),
-                fetch_json=fake_fetch,
+                fetcher=fake_fetch,
             )
 
             self.assertEqual(warnings, {})
@@ -113,7 +113,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 output_dir,
                 token=None,
                 today=dt.date(2026, 9, 17),
-                fetch_json=partial_fetch,
+                fetcher=partial_fetch,
             )
 
             self.assertIn("github-languages.svg", warnings)
@@ -123,6 +123,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tempdir:
             output_dir = Path(tempdir)
             language_calls = 0
+            language_urls = []
 
             def fake_fetch(url: str, _: str | None):
                 nonlocal language_calls
@@ -135,6 +136,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                     ]
                 if url.startswith("https://example.test/lang/"):
                     language_calls += 1
+                    language_urls.append(url)
                     return {"Go": 10}
                 if "events/public" in url:
                     return []
@@ -145,11 +147,15 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 output_dir,
                 token=None,
                 today=dt.date(2026, 9, 17),
-                fetch_json=fake_fetch,
+                fetcher=fake_fetch,
             )
 
             self.assertEqual(warnings, {})
             self.assertEqual(language_calls, LANGUAGE_REPO_LIMIT)
+            self.assertEqual(
+                language_urls,
+                [f"https://example.test/lang/{index}" for index in range(LANGUAGE_REPO_LIMIT)],
+            )
 
 
 if __name__ == "__main__":

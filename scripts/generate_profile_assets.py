@@ -316,7 +316,7 @@ def render_assets(
     *,
     token: str | None = None,
     today: dt.date | None = None,
-    fetch_json: Callable[[str, str | None], Any] = request_json,
+    fetcher: Callable[[str, str | None], Any] = request_json,
 ) -> dict[str, str]:
     if today is None:
         today = dt.datetime.now(dt.timezone.utc).date()
@@ -330,7 +330,7 @@ def render_assets(
     repo_error: Exception | None = None
 
     try:
-        profile = fetch_json(f"https://api.github.com/users/{username}", token)
+        profile = fetcher(f"https://api.github.com/users/{username}", token)
     except Exception as exc:  # pragma: no cover - exercised via tests with injected fetcher
         profile_error = exc
 
@@ -338,7 +338,7 @@ def render_assets(
         repos = fetch_all_pages(
             f"https://api.github.com/users/{username}/repos?type=owner&sort=updated",
             token=token,
-            fetch_json=fetch_json,
+            fetch_json=fetcher,
         )
     except Exception as exc:  # pragma: no cover - exercised via tests with injected fetcher
         repo_error = exc
@@ -370,7 +370,7 @@ def render_assets(
             languages_url = repo.get("languages_url")
             if not languages_url:
                 continue
-            language_maps.append(fetch_json(languages_url, token))
+            language_maps.append(fetcher(languages_url, token))
         write_asset(
             output_dir / "github-languages.svg",
             build_languages_svg(aggregate_languages(language_maps), generated_on),
@@ -394,7 +394,7 @@ def render_assets(
         events = fetch_all_pages(
             f"https://api.github.com/users/{username}/events/public",
             token=token,
-            fetch_json=fetch_json,
+            fetch_json=fetcher,
         )
         daily_counts, total_events, touched_repos = bucket_public_events(events, today=today)
         write_asset(
