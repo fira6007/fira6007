@@ -4,9 +4,11 @@ import unittest
 from pathlib import Path
 
 from scripts.generate_profile_assets import (
+    EVENT_PAGE_LIMIT,
     LANGUAGE_REPO_LIMIT,
     aggregate_languages,
     bucket_public_events,
+    fetch_all_pages,
     render_assets,
 )
 
@@ -29,6 +31,7 @@ class GenerateProfileAssetsTests(unittest.TestCase):
             [
                 {"created_at": "2026-09-17T12:00:00Z", "repo": {"name": "fira6007/fira6007"}},
                 {"created_at": "2026-09-16T12:00:00Z", "repo": {"name": "fira6007/demo"}},
+                {"created_at": "not-a-date", "repo": {"name": "ignored/bad-event"}},
                 {"created_at": "2026-08-01T12:00:00Z", "repo": {"name": "ignored/repo"}},
             ],
             today=today,
@@ -156,6 +159,22 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 language_urls,
                 [f"https://example.test/lang/{index}" for index in range(LANGUAGE_REPO_LIMIT)],
             )
+
+    def test_fetch_all_pages_respects_max_pages(self) -> None:
+        requested_urls = []
+
+        def fake_fetch(url: str, _: str | None):
+            requested_urls.append(url)
+            return [{"page": len(requested_urls)}] * 100
+
+        rows = fetch_all_pages(
+            "https://api.github.com/users/fira6007/events/public",
+            fetch_json=fake_fetch,
+            max_pages=EVENT_PAGE_LIMIT,
+        )
+
+        self.assertEqual(len(requested_urls), EVENT_PAGE_LIMIT)
+        self.assertEqual(len(rows), EVENT_PAGE_LIMIT * 100)
 
 
 if __name__ == "__main__":

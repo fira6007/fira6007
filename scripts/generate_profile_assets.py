@@ -21,6 +21,8 @@ CARD_HEIGHT = 420
 ACTIVITY_WIDTH = 1100
 ACTIVITY_HEIGHT = 360
 LANGUAGE_REPO_LIMIT = 20
+REPOSITORY_PAGE_LIMIT = 5
+EVENT_PAGE_LIMIT = 3
 
 
 def escape(value: Any) -> str:
@@ -45,10 +47,13 @@ def fetch_all_pages(
     *,
     token: str | None = None,
     fetch_json: Callable[[str, str | None], Any] = request_json,
+    max_pages: int | None = None,
 ) -> list[dict[str, Any]]:
     page = 1
     rows: list[dict[str, Any]] = []
     while True:
+        if max_pages is not None and page > max_pages:
+            return rows
         separator = "&" if "?" in url else "?"
         batch = fetch_json(f"{url}{separator}per_page=100&page={page}", token)
         if not batch:
@@ -108,7 +113,10 @@ def bucket_public_events(
         repo_name = ((event.get("repo") or {}).get("name")) or ""
         if not created_at:
             continue
-        event_date = dt.datetime.fromisoformat(created_at.replace("Z", "+00:00")).date()
+        try:
+            event_date = dt.datetime.fromisoformat(created_at.replace("Z", "+00:00")).date()
+        except ValueError:
+            continue
         delta = (today - event_date).days
         if 0 <= delta < days:
             counts[days - delta - 1] += 1
@@ -339,6 +347,7 @@ def render_assets(
             f"https://api.github.com/users/{username}/repos?type=owner&sort=updated",
             token=token,
             fetch_json=fetcher,
+            max_pages=REPOSITORY_PAGE_LIMIT,
         )
     except Exception as exc:  # pragma: no cover - exercised via tests with injected fetcher
         repo_error = exc
@@ -395,6 +404,7 @@ def render_assets(
             f"https://api.github.com/users/{username}/events/public",
             token=token,
             fetch_json=fetcher,
+            max_pages=EVENT_PAGE_LIMIT,
         )
         daily_counts, total_events, touched_repos = bucket_public_events(events, today=today)
         write_asset(
