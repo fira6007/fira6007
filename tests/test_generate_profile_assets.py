@@ -92,6 +92,32 @@ class GenerateProfileAssetsTests(unittest.TestCase):
                 (output_dir / "github-activity.svg").read_text(encoding="utf-8"),
             )
 
+    def test_render_assets_preserves_existing_languages_when_repo_fetch_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as tempdir:
+            output_dir = Path(tempdir)
+            languages_card = output_dir / "github-languages.svg"
+            languages_card.write_text("keep-languages", encoding="utf-8")
+
+            def partial_fetch(url: str, _: str | None):
+                if url == "https://api.github.com/users/fira6007":
+                    return {"public_repos": 7, "followers": 0, "following": 0}
+                if "repos?type=owner&sort=updated" in url:
+                    raise RuntimeError("repo api unavailable")
+                if "events/public" in url:
+                    return []
+                raise AssertionError(f"Unexpected URL: {url}")
+
+            warnings = render_assets(
+                "fira6007",
+                output_dir,
+                token=None,
+                today=dt.date(2026, 9, 17),
+                fetch_json=partial_fetch,
+            )
+
+            self.assertIn("github-languages.svg", warnings)
+            self.assertEqual(languages_card.read_text(encoding="utf-8"), "keep-languages")
+
 
 if __name__ == "__main__":
     unittest.main()

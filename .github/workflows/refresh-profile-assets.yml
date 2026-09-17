@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: "17 5 * * *"
 
-permissions:
-  contents: read
-
 jobs:
   refresh-assets:
     runs-on: ubuntu-latest

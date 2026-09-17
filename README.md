@@ -93,4 +93,4 @@ I’m most motivated when software removes friction from real operational bottle
 
 ## 🔄 Public Data Refresh
 
-This profile now uses repository-hosted SVG cards refreshed by GitHub Actions with public GitHub data and the built-in `GITHUB_TOKEN`. That removes the broken dependency on third-party stats, language, activity, and trophy services while keeping the profile visually rich and honest about what each card actually measures. If a refresh fails, the workflow preserves the last good snapshot and the generator falls back to an explicit unavailable state instead of silently showing stale or broken embeds.
+This profile now uses repository-hosted SVG cards refreshed by GitHub Actions with public GitHub data and the built-in `GITHUB_TOKEN`. That removes the broken dependency on third-party stats, language, activity, and trophy services while keeping the profile visually rich and honest about what each card actually measures. If a refresh fails, existing cards are preserved when possible; when a card has no prior snapshot yet, the generator writes an explicit unavailable state instead of silently showing stale or broken embeds.

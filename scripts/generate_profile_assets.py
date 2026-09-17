@@ -323,16 +323,32 @@ def render_assets(
     output_dir.mkdir(parents=True, exist_ok=True)
     warnings: dict[str, str] = {}
 
+    profile: dict[str, Any] | None = None
+    repos: list[dict[str, Any]] | None = None
+    profile_error: Exception | None = None
+    repo_error: Exception | None = None
+
     try:
         profile = fetch_json(f"https://api.github.com/users/{username}", token)
+    except Exception as exc:  # pragma: no cover - exercised via tests with injected fetcher
+        profile_error = exc
+
+    try:
         repos = fetch_all_pages(
             f"https://api.github.com/users/{username}/repos?type=owner&sort=updated",
             token=token,
             fetch_json=fetch_json,
         )
-        write_asset(output_dir / "github-overview.svg", build_overview_svg(profile, repos, generated_on))
     except Exception as exc:  # pragma: no cover - exercised via tests with injected fetcher
-        warnings["github-overview.svg"] = str(exc)
+        repo_error = exc
+
+    if profile is not None and repos is not None:
+        write_asset(output_dir / "github-overview.svg", build_overview_svg(profile, repos, generated_on))
+    else:
+        warning_detail = "; ".join(
+            str(error) for error in (profile_error, repo_error) if error is not None
+        ) or "profile data unavailable"
+        warnings["github-overview.svg"] = warning_detail
         overview_path = output_dir / "github-overview.svg"
         if not overview_path.exists():
             write_asset(
@@ -345,17 +361,10 @@ def render_assets(
                     CARD_HEIGHT,
                 ),
             )
-        profile = None
-        repos = []
-
     try:
         language_maps = []
-        if not repos:
-            repos = fetch_all_pages(
-                f"https://api.github.com/users/{username}/repos?type=owner&sort=updated",
-                token=token,
-                fetch_json=fetch_json,
-            )
+        if repos is None:
+            raise RuntimeError("Repository list could not be fetched during this refresh.")
         for repo in repos:
             languages_url = repo.get("languages_url")
             if not languages_url:
