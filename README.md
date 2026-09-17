@@ -1,15 +1,64 @@
-# 💫 About Me:
-👨‍💻 I'm currently working on building a student exam prep app with React Native and Node.js.<br>🤝 I'm looking to collaborate on open-source tools that make learning and productivity easier.<br>🙋 I'm looking for help with improving backend architecture and scaling apps with Redis and Docker.<br>📚 I'm currently learning advanced database design with Prisma and exploring cloud deployment.<br>💬 Ask me about full-stack development, backend APIs, or getting started with MySQL + Express.<br>😄 Fun fact: I love coffee, and debugging at 2 AM (sometimes all at once).
+<h1 align="center">Hi, I'm Firaol 👋</h1>
 
+<p align="center">
+  <strong>Software Engineer · Fourth-year Software Engineering student</strong>
+</p>
 
-## 🌐 Socials:
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/linkedin.com/in/firaol-abera-382b18298) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:firaol991@gmail.com) 
+<p align="center">
+  Reliable backends. Thoughtful interfaces. Real-world impact.
+</p>
 
-# 💻 Tech Stack:
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white) ![EJS](https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=fira6007&theme=dark&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=fira6007&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=fira6007&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+<p align="center">
+  <a href="https://www.linkedin.com/in/firaol-abera-382b18298/">LinkedIn</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/fira6007?tab=repositories">Explore my work</a>
+</p>
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+---
+
+### About me
+
+I build software that solves practical problems, with a focus on **backend architecture, distributed systems, and real-time applications**. I work across web and mobile, connecting resilient systems with simple, responsive experiences.
+
+- **What I build:** Campus information platforms, SMS gateways, and tools for local businesses.
+- **What I value:** Clean API contracts, reliable data flows, and performance under load.
+- **Beyond code:** Ubuntu, terminal-driven workflows, and a good game of chess.
+
+### Tools I work with
+
+| | Technologies |
+| :--- | :--- |
+| **Backend** | Go · TypeScript · NestJS |
+| **Web & mobile** | Next.js · Flutter |
+| **Databases** | PostgreSQL · MySQL |
+| **Real-time & messaging** | Redis · WebSockets |
+| **Environment** | Docker · Ubuntu |
+
+---
+
+### GitHub at a glance
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=fira6007&amp;show_icons=true&amp;hide_rank=true&amp;hide_border=true&amp;bg_color=0d1117&amp;title_color=58a6ff&amp;icon_color=58a6ff&amp;text_color=c9d1d9&amp;border_radius=12" alt="Firaol's GitHub statistics" width="420" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=fira6007&amp;layout=compact&amp;langs_count=6&amp;hide_border=true&amp;bg_color=0d1117&amp;title_color=58a6ff&amp;text_color=c9d1d9&amp;border_radius=12" alt="Most-used languages in Firaol's public repositories" width="320" />
+</p>
+
+<p align="center">
+  <sub>Language statistics reflect repository code, not proficiency.</sub>
+</p>
+
+### Contribution activity
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=fira6007&amp;bg_color=0d1117&amp;color=c9d1d9&amp;line=58a6ff&amp;point=79c0ff&amp;area=true&amp;area_color=1f6feb&amp;hide_border=true&amp;hide_title=true&amp;radius=12" alt="Graph of Firaol's GitHub contribution activity over the last 31 days" width="100%" />
+</p>
+
+<details>
+  <summary><strong>🏆 GitHub trophies</strong></summary>
+  <br />
+  <p align="center">
+    <img src="https://github-profile-trophy.vercel.app/?username=fira6007&amp;theme=darkhub&amp;no-frame=true&amp;column=3&amp;row=2&amp;margin-w=12&amp;margin-h=12" alt="Firaol's GitHub profile trophies" />
+  </p>
+</details>
+
+<!-- Stats, activity graphs, and trophies depend on third-party services and may occasionally be unavailable. -->
